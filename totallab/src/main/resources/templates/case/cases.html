@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cases</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${ not#lists.isEmpty(cases)}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Lawyer</th>
+        <th>Actions</th>
+        <th>#Clients</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="case : ${cases}">
+        <td th:text="${case.title}"></td>
+        <td> <a th:if="${case.lawyer!=null}" th:href="@{'/lawyer/' + ${case.lawyer.getId()}}" th:text="${case.lawyer.getFirst_name() + ' ' + case.lawyer.getLast_name()}"></a></td>
+        <td>
+          <a class="btn btn-outline-primary btn-sm" th:href="@{'/case/' + ${case.id}}">Details</a>
+          <span th:if="${case.lawyer==null}">
+                    <a th:href="@{'/case/assign/' + ${case.id}}">Assign Lawyer</a>
+                </span>
+          <span th:if="${case.lawyer!=null}">
+                    <a class="btn btn-outline-danger btn-sm"  th:href="@{'/case/unassign/' + ${case.id}}">Unassign</a>
+                </span>
+          <span>
+                     <a class="btn btn-outline-light btn-sm" th:href="@{'/case/clientassign/' + ${case.id}}">Assign Client</a>
+                </span>
+        </td>
+        <td> <span th:if="${case.clients!=null}" th:text="${case.clients.size()}"></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:if="${ #lists.isEmpty(cases)}">
+    No Courses found!
+  </div>
+  <a sec:authorize="hasRole('ADMIN')" href="/case/new" class="btn btn-primary" role="button">Create new Case</a>
+</div>
+</body>
+</html>

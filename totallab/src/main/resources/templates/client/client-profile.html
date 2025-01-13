@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Clients</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ client}">
+
+        <div class="card" style="width:400px">
+            <img class="card-img-top" th:src="@{/images/img_avatar1.png}" alt="Card image">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${client.name + ' ' + client.surname}"></h4>
+                <p class="card-text" th:text="'Client ID is ' + ${client.id}"></p>
+                <div class="card-text" th:if="${client.clientProfile}">
+                    <p th:if="${client.clientProfile.homeTown}" th:text="'Client's homeTown is ' + ${client.clientProfile.homeTown}"></p>
+                    <p th:if="${client.clientProfile.roadName}" th:text="'Client's roadName is ' + ${client.clientProfile.roadName}"></p>
+                    <p th:if="${client.clientProfile.roadId}" th:text="'Client's roadId is ' + ${client.clientProfile.RoadId}"></p>
+                </div>
+                <a href="#" class="btn btn-primary">See Profile</a>
+            </div>
+        </div>
+
+    </div>
+    <div th:if="${client == null}">
+        No Clients found!
+    </div>
+</div>
+</body>
+</html>

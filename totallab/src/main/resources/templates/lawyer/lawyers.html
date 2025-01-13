@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lawyers</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${ not#lists.isEmpty(lawyers)}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="lawyer : ${lawyers}">
+        <td th:text="${lawyer.title}"></td>
+        <td th:text="${lawyer.first_name}"></td>
+        <td th:text="${lawyer.last_name}"></td>
+        <td th:text="${lawyer.email}"></td>
+        <td>
+          <a class="btn btn-outline-light btn-sm"  th:href="@{'/lawyer/' + ${lawyer.id}}">Details</a>
+          <a class="btn btn-outline-info btn-sm"  th:href="@{'/lawyer/' + ${lawyer.id} + '/cases'}">Cases</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:if="${ #lists.isEmpty(lawyers)}">
+    No Lawyers found!
+  </div>
+  <a href="/lawyer/new" class="btn btn-primary" role="button">Create new Lawyer</a>
+</div>
+</body>
+</html>

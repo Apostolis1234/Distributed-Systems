@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lawyer</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <form action="#" th:action="@{/lawyer/new}" th:object="${lawyer}"
+        method="post">
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" class="form-control" th:field="*{title}">
+    </div>
+
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="text" id="first_name" class="form-control" th:field="*{first_name}">
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input type="text" id="last_name" class="form-control" th:field="*{last_name}">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" class="form-control" th:field="*{email}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+</body>
+</html>
